@@ -37,25 +37,26 @@
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" (click)="logout()">Logout</a>
             </div>
+            <img src="{{ user.photoUrl }}" alt="{{ user.username }}" class="ml-2">
         </div>
 
-        <form *ngIf="(accountService.currentUser$ | async) === null" #loginForm="ngForm" 
-            class="d-flex" role="search" (ngSubmit)="login()" 
+        <form *ngIf="(accountService.currentUser$ | async) === null" #loginForm="ngForm"
+            class="d-flex" role="search" (ngSubmit)="login()"
             autocomplete="off">
-            <input 
+            <input
                 name="username"
                 [(ngModel)]="model.username"
-                class="form-control mr-2" 
-                type="text" 
+                class="form-control mr-2"
+                type="text"
                 placeholder="Username">
-            <input 
+            <input
                 name="password"
                 [(ngModel)]="model.password"
-                class="form-control mr-2" 
-                type="password" 
+                class="form-control mr-2"
+                type="password"
                 placeholder="Password">
-            <button 
-                class="btn btn-success" 
+            <button
+                class="btn btn-success"
                 type="submit">Login</button>
         </form>
     </div>
