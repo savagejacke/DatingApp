@@ -6,6 +6,7 @@ using API.Data;
 using API.Helpers;
 using API.Interfaces;
 using API.Services;
+using API.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Extensions
@@ -13,8 +14,9 @@ namespace API.Extensions
     public static class ApplicationServiceExtensions
     {
         public static IServiceCollection AddApplicationsServices
-            (this IServiceCollection services, IConfiguration config) {
-
+            (this IServiceCollection services, IConfiguration config)
+        {
+            services.AddSingleton<PresenceTracker>();
             services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<LogUserActivity>();
@@ -22,8 +24,8 @@ namespace API.Extensions
             services.AddScoped<ILikesRepository, LikesRepository>();
             services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddAutoMapper(typeof (AutoMapperProfiles).Assembly);
-            services.AddDbContext<DataContext>(options => 
+            services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
+            services.AddDbContext<DataContext>(options =>
             {
                 options.UseSqlite(config.GetConnectionString("DefaultConnection"));
             });
